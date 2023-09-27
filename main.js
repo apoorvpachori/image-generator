@@ -1,6 +1,3 @@
-import './style.css'
-
-
 const form = document.querySelector('form');
 
 form.addEventListener('submit', async (e) => {
@@ -10,6 +7,14 @@ form.addEventListener('submit', async (e) => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-    }
+    },
+    body: JSON.stringify({
+      prompt: data.get('prompt'),
+    })
   })
-})
+  const { image } = await response.json();
+  console.log(image);
+  const result = document.querySelector('#result');
+  result.innerHTML = `<img src="${image}" width="512" />`;
+
+});
